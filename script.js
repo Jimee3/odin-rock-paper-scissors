@@ -10,7 +10,6 @@ function getComputerChoice() {
     }
     return computerChoice
 }
-// console.log(getComputerChoice());
 
 function getHumanChoice() {
     let humanChoice = prompt("Enter you choice:")
@@ -29,28 +28,41 @@ function getHumanChoice() {
     return humanChoice
 }
 
-// console.log(getHumanChoice());
+function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
 
-let humanScore = 0;
-let computerScore = 0;
+    function playRound(humanChoice, computerChoice) {
+        if ((humanChoice == "Rock" && computerChoice == "Scissors") || (humanChoice == "Paper" && computerChoice == "Rock") || (humanChoice == "Scissors" && computerChoice == "Paper")) {
+            console.log(`You Win! ${humanChoice} beats ${computerChoice}`);
+            humanScore++
+        } else if ((computerChoice == "Rock" && humanChoice == "Scissors") || (computerChoice == "Paper" && humanChoice == "Rock") || (computerChoice == "Scissors" && humanChoice == "Paper")) {
+            console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+            computerScore++
+        } else if (humanChoice == computerChoice) {
+            console.log(`It's a draw! You both choose ${humanChoice}`);
+        } else {
+            console.log("An error occurred. Scores are unchanged");
+        }
 
-function playRound(humanChoice, computerChoice) {
-    if ((humanChoice == "Rock" && computerChoice == "Scissors") || (humanChoice == "Paper" && computerChoice == "Rock") || (humanChoice == "Scissors" && computerChoice == "Paper")) {
-        console.log(`You Win! ${humanChoice} beats ${computerChoice}`)
-        humanScore++
-    } else if ((computerChoice == "Rock" && humanChoice == "Scissors") || (computerChoice == "Paper" && humanChoice == "Rock") || (computerChoice == "Scissors" && humanChoice == "Paper")) {
-        console.log(`You lose! ${computerChoice} beats ${humanChoice}`)
-        computerScore++
-    } else if (humanChoice == computerChoice) {
-        console.log(`It's a draw! You both choose ${humanChoice}`)
-    } else {
-        console.log("An error occurred. Scores are unchanged")
+        console.log(`Your Score: ${humanScore}`);
+        console.log(`Computer's Score: ${computerScore}`);
     }
-    console.log(`Your Score: ${humanScore}`);
-    console.log(`Computer's Score: ${computerScore}`);
+
+    for (let i = 0; i < 5; i++ ) {
+        playRound(getHumanChoice(),getComputerChoice())
+    }
+
+    console.log("Game Over!")
+    if (humanScore > computerScore) {
+        console.log("You Win!!!");
+    } else if (computerScore > humanScore) {
+        console.log("You Lose!");
+    } else if (humanScore == computerScore) {
+        console.log("It's a draw.");
+    } else {
+        console.log("There was an error comparing scores.");
+    }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
+playGame()
